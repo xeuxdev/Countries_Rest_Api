@@ -1,7 +1,8 @@
 import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
-
+import MoonSolid from "../icons/MoonSolid"
+import MoonReg from "../icons/MoonReg"
 
 type Props = {
   children: React.ReactNode
@@ -33,8 +34,8 @@ const Layout = ({ children }: Props) => {
               whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.9 }}
             >
-              <p>{theme === "dark" ? "🌙" : "🌞"}</p>
-              <p className="text-light_Mode_Text dark:text-dark_Mode_Text text-sm">
+              {theme === "dark" ? <MoonSolid /> : <MoonReg />}
+              <p className="text-light_Mode_Text dark:text-dark_Mode_Text text-sm font-semibold">
                 {theme === "dark" ? "Dark Mode" : "Light Mode"}
               </p>
             </motion.div>

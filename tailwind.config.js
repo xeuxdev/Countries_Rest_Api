@@ -18,6 +18,9 @@ module.exports = {
     container: {
       center: true,
     },
+    fontFamily: {
+      nunito: ["Nunito Sans"," sans-serif"]
+    },
     extend: {},
   },
   plugins: [],

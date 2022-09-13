@@ -1,13 +1,15 @@
 import "../styles/globals.css"
 import type { AppProps } from "next/app"
-import Navbar from "../components/Navbar"
+import Layout from "../components/Layout"
+import { ThemeProvider } from "next-themes"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Navbar />
-      <Component {...pageProps} />
-    </>
+    <ThemeProvider attribute="class">
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ThemeProvider>
   )
 }
 

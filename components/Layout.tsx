@@ -19,9 +19,9 @@ const Layout = ({ children }: Props) => {
     return null
   }
   return (
-    <div className={`font-nunito ${theme === "dark" ? "dark" : ""}`}>
+    <>
       <div className="bg-light_Mode_Background dark:bg-dark_Mode_Background min-h-screen">
-        <header className="px-5 md:px-7 lg:px-6 xl:px-0 bg-light_Mode_Elements dark:bg-dark_Mode_Elements  mb-7 lg:mb-10">
+        <header className="px-5 md:px-7 lg:px-6 xl:px-0 bg-light_Mode_Elements dark:bg-dark_Mode_Elements  mb-7 lg:mb-10 font-nunito">
           <nav className="flex items-center justify-between container h-24 lg:h-20 w-full ">
             <div>
               <p className="text-light_Mode_Text dark:text-dark_Mode_Text text-base lg:text-lg font-extrabold">
@@ -41,9 +41,9 @@ const Layout = ({ children }: Props) => {
             </motion.div>
           </nav>
         </header>
-        <main className="container">{children}</main>
+        <main className="container font-nunito">{children}</main>
       </div>
-    </div>
+    </>
   )
 }
 

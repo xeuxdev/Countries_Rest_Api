@@ -5,10 +5,14 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import ArrowDown from "../icons/ArrowDown"
 import Search from "../icons/Search"
+import ClickAwayListener from "react-click-away-listener"
 
 const Home: NextPage = () => {
   const region: string[] = ["africa", "america", "asia", "europe", "oceania"]
   const [showFilterOption, setShowFilterOption] = useState(false)
+
+  const closeFilterMenu = () => setShowFilterOption(false)
+
   return (
     <>
       <Head>
@@ -31,40 +35,42 @@ const Home: NextPage = () => {
             </span>
           </div>
           {/* filter */}
-          <div className="w-[15.625rem] lg:w-[12.5rem] space-y-2 cursor-pointer">
-            <motion.div
-              whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
-              whileTap={{ scale: 0.9 }}
-              className="bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-full h-16 flex items-center justify-between px-7 shadow-md rounded-md"
-              onClick={() => setShowFilterOption(!showFilterOption)}
-            >
-              <p className="text-xs font-semibold select-none">
-                Filter by Region
-              </p>
-              <ArrowDown />
-            </motion.div>
-
-            {showFilterOption && (
-              <AnimatePresence
-                initial={false}
-                mode={"wait"}
-                onExitComplete={() => null}
+          <ClickAwayListener onClickAway={closeFilterMenu}>
+            <div className="w-[15.625rem] lg:w-[12.5rem] space-y-2 cursor-pointer">
+              <motion.div
+                whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+                whileTap={{ scale: 0.9 }}
+                className="bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-full h-16 flex items-center justify-between px-7 shadow-md rounded-md"
+                onClick={() => setShowFilterOption(!showFilterOption)}
               >
-                <motion.div
-                  className="w-full  px-7 py-5 bg-light_Mode_Elements dark:bg-dark_Mode_Elements flex flex-col shadow-md rounded-md"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, transition: { delay: 0.5 } }}
+                <p className="text-xs font-semibold select-none">
+                  Filter by Region
+                </p>
+                <ArrowDown />
+              </motion.div>
+
+              {showFilterOption && (
+                <AnimatePresence
+                  initial={false}
+                  mode={"wait"}
+                  onExitComplete={() => null}
                 >
-                  {region.map((reg) => (
-                    <li key={reg} className="list-none capitalize ">
-                      <RegionLink name={reg} />
-                    </li>
-                  ))}
-                </motion.div>
-              </AnimatePresence>
-            )}
-          </div>
+                  <motion.div
+                    className="w-full  px-7 py-5 bg-light_Mode_Elements dark:bg-dark_Mode_Elements flex flex-col shadow-md rounded-md"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0, transition: { delay: 0.5 } }}
+                  >
+                    {region.map((reg) => (
+                      <li key={reg} className="list-none capitalize ">
+                        <RegionLink name={reg} />
+                      </li>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              )}
+            </div>
+          </ClickAwayListener>
         </section>
       </div>
 

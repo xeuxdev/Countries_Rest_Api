@@ -15,6 +15,9 @@ module.exports = {
       light_Mode_Text: "hsl(200, 15%, 8%)",
       light_Mode_Input: "hsl(0, 0%, 52%)",
     },
+    container: {
+      center: true,
+    },
     extend: {},
   },
   plugins: [],

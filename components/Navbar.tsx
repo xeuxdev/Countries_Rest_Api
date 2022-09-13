@@ -1,10 +1,6 @@
-import React from 'react'
-
-type Props = {}
-
-const Navbar = (props: Props) => {
+const Navbar = () => {
   return (
-    <div>Navbar</div>
+    <nav className="flex items-center justify-between bg-dark_Mode_Elements h-10"></nav>
   )
 }
 

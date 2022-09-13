@@ -2,6 +2,7 @@ import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 
+
 type Props = {
   children: React.ReactNode
 }
@@ -39,7 +40,7 @@ const Layout = ({ children }: Props) => {
             </motion.div>
           </nav>
         </header>
-        <main>{children}</main>
+        <main className="container">{children}</main>
       </div>
     </div>
   )

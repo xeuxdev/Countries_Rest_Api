@@ -6,8 +6,10 @@ import { motion, AnimatePresence } from "framer-motion"
 import ArrowDown from "../icons/ArrowDown"
 import Search from "../icons/Search"
 import ClickAwayListener from "react-click-away-listener"
+import CountryCard from "../components/CountryCard"
+import { Country } from "../types/Country"
 
-const Home: NextPage = () => {
+const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
   const region: string[] = ["africa", "america", "asia", "europe", "oceania"]
   const [showFilterOption, setShowFilterOption] = useState(false)
 
@@ -22,7 +24,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="px-5 md:px-7 lg:px-6 xl:px-0 font-nunito">
-        <section className="flex md:items-start flex-col space-y-10 md:space-y-0 md:flex-row md:justify-between">
+        <section className="flex md:items-start flex-col space-y-10 md:space-y-0 md:flex-row md:justify-between mb-10">
           {/* input */}
           <div className="input h-16 w-full md:w-[480px] shadow-md cursor-pointer relative">
             <input
@@ -36,7 +38,7 @@ const Home: NextPage = () => {
           </div>
           {/* filter */}
           <ClickAwayListener onClickAway={closeFilterMenu}>
-            <div className="w-[15.625rem] lg:w-[12.5rem] space-y-2 cursor-pointer">
+            <div className="w-[15.625rem] lg:w-[12.5rem] space-y-2 cursor-pointer relative">
               <motion.div
                 whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.9 }}
@@ -56,7 +58,7 @@ const Home: NextPage = () => {
                   onExitComplete={() => null}
                 >
                   <motion.div
-                    className="w-full  px-7 py-5 bg-light_Mode_Elements dark:bg-dark_Mode_Elements flex flex-col shadow-md rounded-md"
+                    className="w-full absolute top-[4.5rem] px-7 py-5 bg-light_Mode_Elements dark:bg-dark_Mode_Elements flex flex-col shadow-md rounded-md"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0, transition: { delay: 0.5 } }}
@@ -72,9 +74,15 @@ const Home: NextPage = () => {
             </div>
           </ClickAwayListener>
         </section>
-      </div>
 
-      <footer></footer>
+        <section className="country-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 md:gap-14 lg:gap-16 xl:gap-[4.6875rem] place-items-center lg:place-items-start">
+          {countries.map((country, index) => (
+            <div key={index}>
+              <CountryCard data={country} />
+            </div>
+          ))}
+        </section>
+      </div>
     </>
   )
 }
@@ -93,4 +101,18 @@ const RegionLink = ({ name }: Link) => {
       </a>
     </Link>
   )
+}
+const BASE_URL = "https://restcountries.com/v3.1/all"
+
+export const getStaticProps = async () => {
+  const res = await fetch(
+    `${BASE_URL}?fields=alpha3Code,name,flags,population,region,capital`
+  )
+  const countries = await res.json()
+
+  return {
+    props: {
+      countries,
+    },
+  }
 }

@@ -13,13 +13,13 @@ const CountryCard = ({ data }: Data) => {
         {/* image */}
         <div className="h-[12.5rem] w-full lg:h-40 relative object-cover object-center">
           <Image
-            src={data.flags.png}
+            src={data.flags.svg}
             alt={`the ${data.name} flag`}
             layout="fill"
           />
         </div>
         {/* text */}
-        <div className="w-full h-[13.5rem] lg:h-44 p-7 lg:p-6 ">
+        <div className="w-full h-[13.5rem] lg:h-44 p-7 lg:p-6 text-light_Mode_Text dark:text-dark_Mode_Text">
           <p className="text-2xl lg:text-xl font-extrabold mb-6 lg:mb-5">
             {data.name.common}
           </p>

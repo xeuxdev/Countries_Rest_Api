@@ -1,6 +1,8 @@
 export type Country = {
-  name: string
-  alpha3Code: string
+  name: {
+    common: string
+  }
+  cioc: string
   capital: string
   region: string
   population: string

@@ -1,7 +1,5 @@
 export type Country = {
-  name: {
-    common: string
-  }
+  name: string
   cioc: string
   capital: string
   region: string

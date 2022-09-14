@@ -77,7 +77,7 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
 
         <section className="country-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 md:gap-14 lg:gap-16 xl:gap-[4.6875rem] place-items-center lg:place-items-start">
           {countries.map((country) => (
-            <div key={country.cioc + country.name.common}>
+            <div key={country.cioc + country.name}>
               <CountryCard data={country} />
             </div>
           ))}
@@ -102,7 +102,7 @@ const RegionLink = ({ name }: Link) => {
     </Link>
   )
 }
-const BASE_URL = "https://restcountries.com/v3.1/all"
+const BASE_URL = "https://restcountries.com/v2/all"
 
 export const getStaticProps = async () => {
   const res = await fetch(

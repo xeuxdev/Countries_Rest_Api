@@ -21,7 +21,7 @@ const CountryCard = ({ data }: Data) => {
         {/* text */}
         <div className="w-full h-[13.5rem] lg:h-44 p-7 lg:p-6 text-light_Mode_Text dark:text-dark_Mode_Text">
           <p className="text-2xl lg:text-xl font-extrabold mb-6 lg:mb-5">
-            {data.name.common}
+            {data.name}
           </p>
           <div className="space-y-1">
             <p className=" text-base font-semibold capitalize">

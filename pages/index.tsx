@@ -108,11 +108,11 @@ export const getStaticProps = async () => {
   const res = await fetch(
     `${BASE_URL}?fields=alpha3Code,name,flags,population,region,capital`
   )
-  const countries = await res.json()
+  const data = await res.json()
 
   return {
     props: {
-      countries,
+      countries: data,
     },
   }
 }

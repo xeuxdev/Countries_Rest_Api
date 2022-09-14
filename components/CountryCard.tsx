@@ -21,11 +21,14 @@ const CountryCard = ({ data }: Data) => {
       {/* text */}
       <div className="w-full h-[13.5rem] lg:h-44 p-7 lg:p-6 ">
         <p className="text-2xl lg:text-xl font-extrabold mb-6 lg:mb-5">
-          {data.name}
+          {data.name.common}
         </p>
         <div className="space-y-1">
           <p className=" text-base font-semibold capitalize">
-            population: <span className="font-light">{data.population}</span>
+            population:{" "}
+            <span className="font-light">
+              {data.population.toLocaleString()}
+            </span>
           </p>
           <p className="text-base font-semibold capitalize">
             Region: <span className="font-light">{data.region}</span>

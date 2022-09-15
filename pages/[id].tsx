@@ -121,25 +121,24 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
             </div>
             {/* 53 193 borders */}
             <div className="flex flex-col md:flex-row md:items-center gap-3 mb-20 lg:mb-16">
-              <p className="text-base font-semibold capitalize ">
+              <p className="text-base font-semibold capitalize mr-2">
                 Border Countries:{" "}
               </p>
-              <ul className="flex flex-wrap gap-3 text-light_Mode_Text shadow dark:text-dark_Mode_Text">
+              <ul className="flex flex-wrap gap-3 items-center">
                 {country.borders.length > 1 &&
                   country.borders?.map((border, index) => (
-                    <Link href={`/${border}`} key={index}>
-                      <motion.a
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="cursor-pointer"
-                      >
-                        <>
-                          <li className="rounded bg-light_Mode_Elements px-6 py-1 dark:bg-dark_Mode_Elements">
-                            {border}
-                          </li>
-                        </>
-                      </motion.a>
-                    </Link>
+                    <motion.li
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      key={index}
+                      className=" bg-light_Mode_Elements dark:bg-dark_Mode_Elements h-10 w-20 grid place-items-center shadow-xl rounded-md shadow-light_Mode_Text/25 "
+                    >
+                      <Link href={`/${border}`}>
+                        <a className="cursor-pointer text-light_Mode_Text  dark:text-dark_Mode_Text font-medium">
+                          {border}
+                        </a>
+                      </Link>
+                    </motion.li>
                   ))}
               </ul>
             </div>

@@ -21,8 +21,11 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
   return (
     <>
       <Head>
-        <title>Know Your Country</title>
-        <meta name="description" content="Know Your Country" />
+        <title>{`${country.name.toUpperCase()} Page`}</title>
+        <meta
+          name="description"
+          content={`${country.name} aka ${country.nativeName}`}
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container px-5 md:px-7 lg:px-6 xl:px-14 font-nunito min-h-screen">

@@ -106,12 +106,25 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
               </div>
             </div>
           </div>
+          {/* 53 193 borders */}
+          {/* <ul className="flex flex-wrap gap-3">
+              {borderCountries.length > 1 &&
+                borderCountries?.map(border => (
+                  <Link href={`/${border.alpha3Code}`} key={border.alpha3Code}>
+                    <a>
+                      <li className="rounded bg-element-light px-6 py-1 text-text-light shadow dark:bg-element-dark dark:text-text-dark">
+                        {border.name}
+                      </li>
+                    </a>
+                  </Link>
+                ))}
+            </ul> */}
         </div>
       </section>
     </main>
   )
 }
-//53 193 borders
+
 export default countrydetails
 const BASE_URL = "https://restcountries.com/v2/"
 
@@ -132,7 +145,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     `${BASE_URL}alpha/${params.id}?fields=alpha3Code,name,flags,nativeName,topLevelDomain,subregion,currencies,languages,population,region,capital,borders`
   )
   const country = await res.json()
-  // console.log(country)
 
   return {
     props: {

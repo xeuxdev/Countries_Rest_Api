@@ -19,7 +19,11 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
     <>
       <Head>
         <title>Know Your Country</title>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Know Your Country" />
+
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

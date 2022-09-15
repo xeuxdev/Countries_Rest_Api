@@ -30,7 +30,7 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
       </Head>
       <main className="container px-5 md:px-7 lg:px-6 xl:px-14 font-nunito min-h-screen">
         <Link href={"/"}>
-          <button className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 ">
+          <button className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 hover:scale-105 duration-200">
             <span className="block w-5 h-5">
               <ArrowLeft />
             </span>
@@ -131,7 +131,7 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       key={index}
-                      className=" bg-light_Mode_Elements dark:bg-dark_Mode_Elements h-10 w-20 grid place-items-center shadow-xl rounded-md shadow-light_Mode_Text/25 "
+                      className=" bg-light_Mode_Elements dark:bg-dark_Mode_Elements h-10 w-20 grid place-items-center shadow-xl rounded-md shadow-light_Mode_Text/25 duration-200"
                     >
                       <Link href={`/${border}`}>
                         <a className="cursor-pointer text-light_Mode_Text  dark:text-dark_Mode_Text font-medium">

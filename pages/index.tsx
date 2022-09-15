@@ -106,7 +106,7 @@ const BASE_URL = "https://restcountries.com/v2/all"
 
 export const getStaticProps = async () => {
   const res = await fetch(
-    `${BASE_URL}?fields=cioc,name,flags,population,region,capital`
+    `${BASE_URL}?fields=alpha3Code,name,flags,population,region,capital`
   )
   const data = await res.json()
 

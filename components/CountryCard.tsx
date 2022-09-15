@@ -9,11 +9,11 @@ type Data = {
 const CountryCard = ({ data }: Data) => {
   return (
     <Link href={`/${data.alpha3Code}`}>
-      <div className="card bg-light_Mode_Elements dark:bg-dark_Mode_Elements h-[415px] w-[20.5rem] lg:h-[340px] lg:w-[265px] rounded-lg mx-auto lg:mx-0 overflow-hidden shadow-xl shadow-light_Mode_Text/5 cursor-pointer">
+      <div className="card bg-light_Mode_Elements dark:bg-dark_Mode_Elements h-[25.9375rem] w-[20.5rem] lg:h-[21.25rem] lg:w-[16.5625rem] rounded-lg mx-auto lg:mx-0 overflow-hidden shadow-xl shadow-light_Mode_Text/5 cursor-pointer">
         {/* image */}
-        <div className="h-[12.5rem] w-full lg:h-40 relative object-cover object-center">
+        <div className="h-[12.5rem] w-[20.5rem] lg:w-[16.5625rem] lg:h-40 relative">
           <Image
-            src={data.flags.svg}
+            src={data.flags.png}
             alt={`the ${data.name} flag`}
             layout="fill"
           />

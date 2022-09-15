@@ -23,7 +23,7 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="px-5 md:px-7 lg:px-6 xl:px-0 font-nunito">
+      <div className="px-5 md:px-7 lg:px-6 xl:px-7 2xl:px-0 font-nunito">
         <section className="flex md:items-start flex-col space-y-10 md:space-y-0 md:flex-row md:justify-between mb-10">
           {/* input */}
           <div className="input h-16 w-full md:w-[480px] shadow-md cursor-pointer relative">
@@ -38,7 +38,7 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
           </div>
           {/* filter */}
           <ClickAwayListener onClickAway={closeFilterMenu}>
-            <div className="w-[15.625rem] lg:w-[12.5rem] space-y-2 cursor-pointer relative">
+            <div className="w-[15.625rem] lg:w-[12.5rem] space-y-2 cursor-pointer relative z-20">
               <motion.div
                 whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.9 }}

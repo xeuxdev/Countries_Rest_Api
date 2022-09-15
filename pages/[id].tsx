@@ -1,4 +1,5 @@
 import { NextPage, GetStaticPaths, GetStaticProps } from "next"
+import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import ArrowLeft from "../icons/ArrowLeft"
@@ -17,97 +18,104 @@ interface Props extends Country {
 
 const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
   return (
-    <main className="container px-5 md:px-7 lg:px-6 xl:px-0 font-nunito min-h-screen">
-      <Link href={"/"}>
-        <button className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 ">
-          <span className="block w-5 h-5">
-            <ArrowLeft />
-          </span>
-          Back
-        </button>
-      </Link>
-      <section className="flex lg:items-center justify-between flex-col lg:flex-row gap-20 lg:gap-[136px]">
-        {/* image */}
-        <div className="h-[15rem] w-full md:w-[559px] md:h-[404px] object-cover object-center relative shadow-xl">
-          <Image
-            src={country.flags.svg}
-            alt={country.name + "flag"}
-            layout="fill"
-            priority={true}
-          />
-        </div>
-        {/* texts */}
-        <div className="mb-20 lg:mb-16">
-          <p className="text-2xl lg:text-xl font-extrabold mb-6 lg:mb-5">
-            {country.name}
-          </p>
-          <div className="text flex items-start justify-start gap-14 lg:gap-28 flex-col lg:flex-row lg:min-w-[580px] text-light_Mode_Text dark:text-dark_Mode_Text">
-            <div className="">
-              <div className="space-y-1">
-                <p className="text-base font-semibold capitalize">
-                  native name:{" "}
-                  <span className="font-light">{country.nativeName}</span>
-                </p>
-                <p className=" text-base font-semibold capitalize">
-                  population:{" "}
-                  <span className="font-light">
-                    {country.population.toLocaleString()}
-                  </span>
-                </p>
-                <p className="text-base font-semibold capitalize">
-                  Region: <span className="font-light">{country.region}</span>
-                </p>
-                <p className="text-base font-semibold capitalize">
-                  sub Region:{" "}
-                  <span className="font-light">{country.subregion}</span>
-                </p>
-                <p className=" text-base font-semibold capitalize">
-                  capital: <span className="font-light">{country.capital}</span>
-                </p>
-              </div>
-            </div>
-            <div>
-              <div className="space-y-1">
-                <li className="text-base font-semibold capitalize list-none">
-                  top level domains:
-                  <>
-                    {country.topLevelDomain?.map((domain) => (
-                      <span key={domain} className="font-light pl-2">
-                        {domain}
-                      </span>
-                    ))}
-                  </>
-                </li>
-
-                <li className="text-base font-semibold capitalize list-none">
-                  currencies:
-                  <>
-                    {country.currencies.map((currency) => (
-                      <span key={currency.code} className="font-light pl-2">
-                        {currency.name}
-                        <q className="pl-2 font-bold">{currency.symbol}</q>
-                      </span>
-                    ))}
-                  </>
-                </li>
-                <li className="text-base font-semibold capitalize list-none">
-                  languages:
-                  <>
-                    {country.languages.map((language, i) => (
-                      <span key={language.name} className="font-light pl-2">
-                        {language.name}
-                        {country.languages.length > 1 &&
-                          i + 1 < country.languages.length &&
-                          ","}
-                      </span>
-                    ))}
-                  </>
-                </li>
-              </div>
-            </div>
+    <>
+      <Head>
+        <title>Know Your Country</title>
+        <meta name="description" content="Know Your Country" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className="container px-5 md:px-7 lg:px-6 xl:px-7 2xl:px-0 font-nunito min-h-screen">
+        <Link href={"/"}>
+          <button className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 ">
+            <span className="block w-5 h-5">
+              <ArrowLeft />
+            </span>
+            Back
+          </button>
+        </Link>
+        <section className="flex lg:items-center justify-between flex-col lg:flex-row gap-20 lg:gap-[136px]">
+          {/* image */}
+          <div className="h-[15rem] w-full md:w-[559px] md:h-[404px] object-cover object-center relative shadow-xl">
+            <Image
+              src={country.flags.svg}
+              alt={country.name + "flag"}
+              layout="fill"
+              priority={true}
+            />
           </div>
-          {/* 53 193 borders */}
-          {/* <ul className="flex flex-wrap gap-3">
+          {/* texts */}
+          <div className="mb-20 lg:mb-16">
+            <p className="text-2xl lg:text-xl font-extrabold mb-6 lg:mb-5">
+              {country.name}
+            </p>
+            <div className="text flex items-start justify-start gap-14 lg:gap-28 flex-col lg:flex-row lg:min-w-[580px] text-light_Mode_Text dark:text-dark_Mode_Text">
+              <div className="">
+                <div className="space-y-1">
+                  <p className="text-base font-semibold capitalize">
+                    native name:{" "}
+                    <span className="font-light">{country.nativeName}</span>
+                  </p>
+                  <p className=" text-base font-semibold capitalize">
+                    population:{" "}
+                    <span className="font-light">
+                      {country.population.toLocaleString()}
+                    </span>
+                  </p>
+                  <p className="text-base font-semibold capitalize">
+                    Region: <span className="font-light">{country.region}</span>
+                  </p>
+                  <p className="text-base font-semibold capitalize">
+                    sub Region:{" "}
+                    <span className="font-light">{country.subregion}</span>
+                  </p>
+                  <p className=" text-base font-semibold capitalize">
+                    capital:{" "}
+                    <span className="font-light">{country.capital}</span>
+                  </p>
+                </div>
+              </div>
+              <div>
+                <div className="space-y-1">
+                  <li className="text-base font-semibold capitalize list-none">
+                    top level domains:
+                    <>
+                      {country.topLevelDomain?.map((domain) => (
+                        <span key={domain} className="font-light pl-2">
+                          {domain}
+                        </span>
+                      ))}
+                    </>
+                  </li>
+
+                  <li className="text-base font-semibold capitalize list-none">
+                    currencies:
+                    <>
+                      {country.currencies.map((currency) => (
+                        <span key={currency.code} className="font-light pl-2">
+                          {currency.name}
+                          <q className="pl-2 font-bold">{currency.symbol}</q>
+                        </span>
+                      ))}
+                    </>
+                  </li>
+                  <li className="text-base font-semibold capitalize list-none">
+                    languages:
+                    <>
+                      {country.languages.map((language, i) => (
+                        <span key={language.name} className="font-light pl-2">
+                          {language.name}
+                          {country.languages.length > 1 &&
+                            i + 1 < country.languages.length &&
+                            ","}
+                        </span>
+                      ))}
+                    </>
+                  </li>
+                </div>
+              </div>
+            </div>
+            {/* 53 193 borders */}
+            {/* <ul className="flex flex-wrap gap-3">
               {borderCountries.length > 1 &&
                 borderCountries?.map(border => (
                   <Link href={`/${border.alpha3Code}`} key={border.alpha3Code}>
@@ -119,9 +127,10 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
                   </Link>
                 ))}
             </ul> */}
-        </div>
-      </section>
-    </main>
+          </div>
+        </section>
+      </main>
+    </>
   )
 }
 

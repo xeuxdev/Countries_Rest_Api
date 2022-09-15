@@ -6,6 +6,13 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1340px",
+    },
     colors: {
       dark_Mode_Background: "hsl(207, 26%, 17%)",
       light_Mode_Background: "hsl(0, 0%, 98%)",
@@ -19,7 +26,7 @@ module.exports = {
       center: true,
     },
     fontFamily: {
-      nunito: ["Nunito Sans"," sans-serif"]
+      nunito: ["Nunito Sans", " sans-serif"],
     },
     extend: {},
   },

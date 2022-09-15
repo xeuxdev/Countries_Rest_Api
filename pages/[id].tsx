@@ -41,10 +41,11 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
           {/* image */}
           <div className="h-[15rem] w-full md:w-[559px] md:h-[404px] object-cover object-center relative shadow-xl">
             <Image
-              src={country.flags.svg}
+              src={country.flags.png}
               alt={country.name + "flag"}
               layout="fill"
               priority={true}
+              quality={100}
             />
           </div>
           {/* texts */}

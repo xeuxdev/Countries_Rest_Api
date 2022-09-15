@@ -16,6 +16,7 @@ const CountryCard = ({ data }: Data) => {
             src={data.flags.png}
             alt={`the ${data.name} flag`}
             layout="fill"
+            quality={100}
           />
         </div>
         {/* text */}

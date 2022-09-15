@@ -1,3 +1,4 @@
+import { motion } from "framer-motion"
 import { NextPage, GetStaticPaths, GetStaticProps } from "next"
 import Head from "next/head"
 import Image from "next/image"
@@ -24,7 +25,7 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
         <meta name="description" content="Know Your Country" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="container px-5 md:px-7 lg:px-6 xl:px-7 2xl:px-0 font-nunito min-h-screen">
+      <main className="container px-5 md:px-7 lg:px-6 xl:px-14 font-nunito min-h-screen">
         <Link href={"/"}>
           <button className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 ">
             <span className="block w-5 h-5">
@@ -44,11 +45,11 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
             />
           </div>
           {/* texts */}
-          <div className="mb-20 lg:mb-16">
+          <div className="">
             <p className="text-2xl lg:text-xl font-extrabold mb-6 lg:mb-5">
               {country.name}
             </p>
-            <div className="text flex items-start justify-start gap-14 lg:gap-28 flex-col lg:flex-row lg:min-w-[580px] text-light_Mode_Text dark:text-dark_Mode_Text">
+            <div className="text flex items-start justify-start gap-14 lg:gap-28 flex-col md:flex-row lg:min-w-[580px] text-light_Mode_Text dark:text-dark_Mode_Text mb-20 lg:mb-16">
               <div className="">
                 <div className="space-y-1">
                   <p className="text-base font-semibold capitalize">
@@ -115,18 +116,29 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
               </div>
             </div>
             {/* 53 193 borders */}
-            {/* <ul className="flex flex-wrap gap-3">
-              {borderCountries.length > 1 &&
-                borderCountries?.map(border => (
-                  <Link href={`/${border.alpha3Code}`} key={border.alpha3Code}>
-                    <a>
-                      <li className="rounded bg-element-light px-6 py-1 text-text-light shadow dark:bg-element-dark dark:text-text-dark">
-                        {border.name}
-                      </li>
-                    </a>
-                  </Link>
-                ))}
-            </ul> */}
+            <div className="flex flex-col md:flex-row md:items-center gap-3 mb-20 lg:mb-16">
+              <p className="text-base font-semibold capitalize ">
+                Border Countries:{" "}
+              </p>
+              <ul className="flex flex-wrap gap-3 text-light_Mode_Text shadow dark:text-dark_Mode_Text">
+                {country.borders.length > 1 &&
+                  country.borders?.map((border, index) => (
+                    <Link href={`/${border}`} key={index}>
+                      <motion.a
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="cursor-pointer"
+                      >
+                        <>
+                          <li className="rounded bg-light_Mode_Elements px-6 py-1 dark:bg-dark_Mode_Elements">
+                            {border}
+                          </li>
+                        </>
+                      </motion.a>
+                    </Link>
+                  ))}
+              </ul>
+            </div>
           </div>
         </section>
       </main>

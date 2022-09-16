@@ -151,8 +151,10 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
 
 export default countrydetails
 
+const BASE_URL = "https://restcountries.com/v2/"
+
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(`${process.env.BASE_URL}all?fields=alpha3Code`)
+  const res = await fetch(`${BASE_URL}all?fields=alpha3Code`)
   const countries = await res.json()
 
   const paths = countries.map((country: { alpha3Code: string }) => ({
@@ -164,9 +166,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!params) throw new Error("route id param is not defined")
+  //@ts-ignore
   const res = await fetch(
-    //@ts-ignore
-    `${process.env.BASE_URL}alpha/${params.id}?fields=alpha3Code,name,flags,nativeName,topLevelDomain,subregion,currencies,languages,population,region,capital,borders`
+    `${BASE_URL}alpha/${params.id}?fields=alpha3Code,name,flags,nativeName,topLevelDomain,subregion,currencies,languages,population,region,capital,borders`
   )
   const country = await res.json()
 

@@ -1,7 +1,7 @@
 import type { NextPage } from "next"
 import Head from "next/head"
 import Link from "next/link"
-import { useState } from "react"
+import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import ArrowDown from "../icons/ArrowDown"
 import Search from "../icons/Search"
@@ -18,15 +18,31 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
 
   const closeFilterMenu = () => setShowFilterOption(false)
 
-  const filteredCountries = 
+  const filteredCountries =
     filteredRegion === "" || null || undefined
-    ? countries : countries.filter(country => country.region === filteredRegion)
+      ? countries
+      : countries.filter(
+          (country) => country.region.toLowerCase() === filteredRegion
+        )
+
+  const searchedCountries =
+    searchQuery === ""
+      ? filteredCountries
+      : filteredCountries.filter((country) =>
+          country.name.toLowerCase().includes(searchQuery.toLowerCase())
+        )
 
   const handleFilterRegion = (region: string) => {
     if (region === "" || null || undefined) setFilteredRegion("")
     else setFilteredRegion(region)
     closeFilterMenu()
   }
+
+  const CardList = searchedCountries.map((country) => (
+    <div key={country.alpha3Code + country.name}>
+      <CountryCard data={country} />
+    </div>
+  ))
 
   return (
     <>
@@ -49,7 +65,9 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
               className="w-full h-full bg-light_Mode_Elements dark:bg-dark_Mode_Elements cursor-pointer pr-10 pl-20 outline-none text-sm text-light_Mode_Text dark:text-dark_Mode_Text"
               placeholder="Search for a country..."
               value={searchQuery}
-              // onChange={}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearchQuery(e.currentTarget.value)
+              }
             />
             <span className="block absolute top-1/2 -translate-y-1/2 left-10 h-7 w-7">
               <Search />
@@ -101,11 +119,7 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
         </section>
 
         <section className="country-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 md:gap-14 lg:gap-16 xl:gap-[4.6875rem] place-items-center lg:place-items-start">
-          {countries.map((country) => (
-            <div key={country.alpha3Code + country.name}>
-              <CountryCard data={country} />
-            </div>
-          ))}
+          {CardList}
         </section>
       </div>
     </>
@@ -128,9 +142,11 @@ const RegionLink = ({ name }: Link) => {
   )
 }
 
+const BASE_URL = "https://restcountries.com/v2/"
+
 export const getStaticProps = async () => {
   const res = await fetch(
-    `${process.env.BASE_URL}?fields=alpha3Code,name,flags,population,region,capital`
+    `${BASE_URL}?fields=alpha3Code,name,flags,population,region,capital`
   )
   const data = await res.json()
 

@@ -18,8 +18,6 @@ interface Props extends Country {
 }
 
 const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
-  //@ts-ignore
-  const router = useRouter()
   return (
     <>
       <Head>
@@ -31,12 +29,14 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container px-5 md:px-7 lg:px-6 xl:px-14 font-nunito min-h-screen">
-        <button className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 hover:scale-105 duration-200">
-          <span className="block w-5 h-5" onClick={() => router.back()}>
-            <ArrowLeft />
-          </span>
-          Back
-        </button>
+        <Link href={"/"}>
+          <button className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 hover:scale-105 duration-200">
+            <span className="block w-5 h-5">
+              <ArrowLeft />
+            </span>
+            Back
+          </button>
+        </Link>
 
         <section className="flex lg:items-center justify-between flex-col lg:flex-row gap-20 lg:gap-[136px]">
           {/* image */}
@@ -120,7 +120,6 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
                 </div>
               </div>
             </div>
-            {/* 53 193 borders */}
             {country.borders.length != 0 ? (
               <div className="flex flex-col md:flex-row md:items-center gap-3 mb-20 lg:mb-16">
                 <p className="text-base font-semibold capitalize mr-2">
@@ -133,10 +132,10 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         key={index}
-                        className=" bg-light_Mode_Elements dark:bg-dark_Mode_Elements h-10 w-20 grid place-items-center shadow-xl rounded-md shadow-light_Mode_Text/25 duration-200"
+                        className=" bg-light_Mode_Elements dark:bg-dark_Mode_Elements h-10 w-20 grid place-items-center shadow-xl rounded-md shadow-light_Mode_Text/25 duration-200 cursor-pointer"
                       >
                         <Link href={`/${border}`}>
-                          <a className="cursor-pointer text-light_Mode_Text  dark:text-dark_Mode_Text font-medium">
+                          <a className=" text-light_Mode_Text  dark:text-dark_Mode_Text font-medium">
                             {border}
                           </a>
                         </Link>

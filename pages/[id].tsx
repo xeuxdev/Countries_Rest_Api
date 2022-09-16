@@ -120,28 +120,32 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
               </div>
             </div>
             {/* 53 193 borders */}
-            <div className="flex flex-col md:flex-row md:items-center gap-3 mb-20 lg:mb-16">
-              <p className="text-base font-semibold capitalize mr-2">
-                Border Countries:{" "}
-              </p>
-              <ul className="flex flex-wrap gap-3 items-center">
-                {country.borders.length > 1 &&
-                  country.borders?.map((border, index) => (
-                    <motion.li
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      key={index}
-                      className=" bg-light_Mode_Elements dark:bg-dark_Mode_Elements h-10 w-20 grid place-items-center shadow-xl rounded-md shadow-light_Mode_Text/25 duration-200"
-                    >
-                      <Link href={`/${border}`}>
-                        <a className="cursor-pointer text-light_Mode_Text  dark:text-dark_Mode_Text font-medium">
-                          {border}
-                        </a>
-                      </Link>
-                    </motion.li>
-                  ))}
-              </ul>
-            </div>
+            {country.borders.length != 0 ? (
+              <div className="flex flex-col md:flex-row md:items-center gap-3 mb-20 lg:mb-16">
+                <p className="text-base font-semibold capitalize mr-2">
+                  Border Countries:{" "}
+                </p>
+                <ul className="flex flex-wrap gap-3 items-center">
+                  {country.borders.length != 0 &&
+                    country.borders?.map((border, index) => (
+                      <motion.li
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        key={index}
+                        className=" bg-light_Mode_Elements dark:bg-dark_Mode_Elements h-10 w-20 grid place-items-center shadow-xl rounded-md shadow-light_Mode_Text/25 duration-200"
+                      >
+                        <Link href={`/${border}`}>
+                          <a className="cursor-pointer text-light_Mode_Text  dark:text-dark_Mode_Text font-medium">
+                            {border}
+                          </a>
+                        </Link>
+                      </motion.li>
+                    ))}
+                </ul>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </section>
       </main>
@@ -164,7 +168,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (!params) throw new Error("route id param is not defined");
+  if (!params) throw new Error("route id param is not defined")
   const res = await fetch(
     //@ts-ignore
     `${BASE_URL}alpha/${params.id}?fields=alpha3Code,name,flags,nativeName,topLevelDomain,subregion,currencies,languages,population,region,capital,borders`

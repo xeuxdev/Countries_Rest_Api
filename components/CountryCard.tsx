@@ -17,6 +17,7 @@ const CountryCard = ({ data }: Data) => {
             alt={`the ${data.name} flag`}
             layout="fill"
             quality={100}
+            priority={true}
           />
         </div>
         {/* text */}

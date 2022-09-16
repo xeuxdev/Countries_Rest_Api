@@ -1,7 +1,7 @@
 import type { NextPage } from "next"
 import Head from "next/head"
 import Link from "next/link"
-import { useState } from "react"
+import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import ArrowDown from "../icons/ArrowDown"
 import Search from "../icons/Search"
@@ -10,10 +10,17 @@ import CountryCard from "../components/CountryCard"
 import { Country } from "../types/Country"
 
 const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
-  const region: string[] = ["africa", "america", "asia", "europe", "oceania"]
+  const [searchQuery, setSearchQuery] = useState("")
   const [showFilterOption, setShowFilterOption] = useState(false)
 
+  const region: string[] = ["africa", "america", "asia", "europe", "oceania"]
+
   const closeFilterMenu = () => setShowFilterOption(false)
+
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value)
+    console.log(searchQuery)
+  }
 
   return (
     <>
@@ -35,6 +42,8 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
               type="text"
               className="w-full h-full bg-light_Mode_Elements dark:bg-dark_Mode_Elements cursor-pointer pr-10 pl-20 outline-none text-sm text-light_Mode_Text dark:text-dark_Mode_Text"
               placeholder="Search for a country..."
+              value={searchQuery}
+              onChange={handleSearchInput}
             />
             <span className="block absolute top-1/2 -translate-y-1/2 left-10 h-7 w-7">
               <Search />

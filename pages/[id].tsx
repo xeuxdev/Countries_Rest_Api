@@ -1,11 +1,11 @@
 import { motion } from "framer-motion"
 import { NextPage, GetStaticPaths, GetStaticProps } from "next"
 import Head from "next/head"
+import { useRouter } from "next/router"
 import Image from "next/image"
 import Link from "next/link"
 import ArrowLeft from "../icons/ArrowLeft"
 import { Country } from "../types/Country"
-
 interface Props extends Country {
   nativeName: string
   subregion: string
@@ -18,6 +18,8 @@ interface Props extends Country {
 }
 
 const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
+  //@ts-ignore
+  const router = useRouter()
   return (
     <>
       <Head>
@@ -29,14 +31,13 @@ const countrydetails: NextPage<{ country: Props }> = ({ country }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container px-5 md:px-7 lg:px-6 xl:px-14 font-nunito min-h-screen">
-        <Link href={"/"}>
-          <button className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 hover:scale-105 duration-200">
-            <span className="block w-5 h-5">
-              <ArrowLeft />
-            </span>
-            Back
-          </button>
-        </Link>
+        <button className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 hover:scale-105 duration-200">
+          <span className="block w-5 h-5" onClick={() => router.back()}>
+            <ArrowLeft />
+          </span>
+          Back
+        </button>
+
         <section className="flex lg:items-center justify-between flex-col lg:flex-row gap-20 lg:gap-[136px]">
           {/* image */}
           <div className="h-[15rem] w-full md:w-[559px] md:h-[404px] object-cover object-center relative shadow-xl">

@@ -10,10 +10,23 @@ import CountryCard from "../components/CountryCard"
 import { Country } from "../types/Country"
 
 const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
-  const region: string[] = ["africa", "america", "asia", "europe", "oceania"]
+  console.log(countries)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [filteredRegion, setFilteredRegion] = useState("")
   const [showFilterOption, setShowFilterOption] = useState(false)
+  const region: string[] = ["africa", "america", "asia", "europe", "oceania"]
 
   const closeFilterMenu = () => setShowFilterOption(false)
+
+  const filteredCountries = 
+    filteredRegion === "" || null || undefined
+    ? countries : countries.filter(country => country.region === filteredRegion)
+
+  const handleFilterRegion = (region: string) => {
+    if (region === "" || null || undefined) setFilteredRegion("")
+    else setFilteredRegion(region)
+    closeFilterMenu()
+  }
 
   return (
     <>
@@ -35,6 +48,8 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
               type="text"
               className="w-full h-full bg-light_Mode_Elements dark:bg-dark_Mode_Elements cursor-pointer pr-10 pl-20 outline-none text-sm text-light_Mode_Text dark:text-dark_Mode_Text"
               placeholder="Search for a country..."
+              value={searchQuery}
+              // onChange={}
             />
             <span className="block absolute top-1/2 -translate-y-1/2 left-10 h-7 w-7">
               <Search />
@@ -50,7 +65,9 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
                 onClick={() => setShowFilterOption(!showFilterOption)}
               >
                 <p className="text-xs font-semibold select-none">
-                  Filter by Region
+                  {filteredRegion === "" || null || undefined
+                    ? "Filter by Region"
+                    : filteredRegion}
                 </p>
                 <ArrowDown />
               </motion.div>
@@ -68,7 +85,11 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
                     exit={{ opacity: 0, transition: { delay: 0.5 } }}
                   >
                     {region.map((reg) => (
-                      <li key={reg} className="list-none capitalize ">
+                      <li
+                        key={reg}
+                        className="list-none capitalize "
+                        onClick={() => handleFilterRegion(reg)}
+                      >
                         <RegionLink name={reg} />
                       </li>
                     ))}

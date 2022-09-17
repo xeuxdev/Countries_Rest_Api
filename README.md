@@ -1,6 +1,6 @@
 # Frontend Mentor - REST Countries API with color theme switcher solution
 
-This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -11,12 +11,8 @@ This is a solution to the [REST Countries API with color theme switcher challeng
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -29,87 +25,104 @@ Users should be able to:
 - Filter countries by region
 - Click on a country to see more detailed information on a separate page
 - Click through to the border countries on the detail page
-- Toggle the color scheme between light and dark mode *(optional)*
+- Toggle the color scheme between light and dark mode _(optional)_
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![screenshot](./screenshot.jpg)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [click here](https://your-live-site-url.com)
 
 ## My process
 
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
 - [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+- [React](https://reactjs.org/) - JS library
+- [TypeScript](https://typescript.) - For Type Safety/annotations/auto docs...
+- [TailwindCSS](https://tailwindcss.com/) - For styles
+- [Framer - Motion](https://framer-motion.com/) - animation library
+- Next - themes - For managing Dark/Light Modes
+- Sharp - For Image Optimisation by Next
+- Semantic HTML5 markup
+- CSS Grid
+- Flexbox
+- Mobile-first workflow
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+## What I learned
 
-### What I learned
+What can i say,😁 i learnt so much i never expect i could learn in such a short time. The nextjs documentation is really helpful as it tells you what is and what is not possible to do with it.
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+I'm really glad that i could implement all the features stated as the challenge
 
-To see how you can add code snippets, see below:
+- Some of the challenges i faced were:
+  - fetching data from the api and parsing it as static files.
+  - fetching all the data as quickly as possible.
+  - Solution i found:
+    - So after checking out the Docs of nextjs because i didn't want to use any tutorial but figure things out myself and this really helped me a bunch. i got to use "getStaticprops" and "getStaticPaths" to auto-generate the individual countries pages. i also got to use "getStaticProps" to server fetch all the countries.😋
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
+Here are some snippets i'm proud of 👇👇👇:
+
+- Generates Individual Pages Assigning the url as the "alpha3Code"
+
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await fetch(`${BASE_URL}all?fields=alpha3Code`)
+  const countries = await res.json()
+
+  const paths = countries.map((country: { alpha3Code: string }) => ({
+    params: { id: country.alpha3Code },
+  }))
+
+  return { paths, fallback: false }
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+- Fetching the Data needed for the individual page and parsing it to the "country" prop
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```js
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (!params) throw new Error("route id param is not defined")
+  const res = await fetch(
+    //@ts-ignore
+    `${BASE_URL}alpha/${params.id}?fields=alpha3Code,name,flags,nativeName,topLevelDomain,subregion,currencies,languages,population,region,capital,borders`
+  )
+  const country = await res.json()
 
-### Continued development
+  return {
+    props: {
+      country,
+    },
+  }
+}
+```
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+- Fetches all the countries from the API and parses the entire result to the "countries" props which is assigned the "data" and parses it to the Page.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+```js
+export const getStaticProps = async () => {
+  const res = await fetch(
+    `${BASE_URL}?fields=alpha3Code,name,flags,population,region,capital`
+  )
+  const data = await res.json()
+
+  return {
+    props: {
+      countries: data,
+    },
+  }
+}
+```
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [Nextjs Documentation](https://nextjs.org/docs) - This helped me really understand in depth how NEXTJS works, best methods on how to use the features and proper/optimum implementation. I really liked this pattern and will use it going forward.
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [frontend - Mentor](https://frontendmentor.io/) - I got to check out other people's solutions and approaches to get an insight on the design.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Frontend Mentor - [@Headbwoi](https://www.frontendmentor.io/profile/Headbwoi)
+- Twitter - [@headbwoi_1](https://www.twitter.com/headbwoi_1)

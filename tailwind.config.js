@@ -28,7 +28,16 @@ module.exports = {
     fontFamily: {
       nunito: ["Nunito Sans", " sans-serif"],
     },
-    extend: {},
+    extend: {
+      animation: {
+        skeleton: "skel 1s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+      },
+      keyframes: {
+        skel: {
+          "50%": { opacity: "0.5" },
+        },
+      },
+    },
   },
   plugins: [],
 }

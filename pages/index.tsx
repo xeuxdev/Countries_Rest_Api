@@ -1,18 +1,20 @@
 import type { NextPage } from "next"
 import Head from "next/head"
 import Link from "next/link"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import ArrowDown from "../icons/ArrowDown"
 import Search from "../icons/Search"
 import ClickAwayListener from "react-click-away-listener"
 import CountryCard from "../components/CountryCard"
 import { Country } from "../types/Country"
+import SkeletonCard from "../components/SkeletonCard"
 
 const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
   const [searchQuery, setSearchQuery] = useState("")
   const [filteredOption, setFilteredOption] = useState("")
   const [showFilterOption, setShowFilterOption] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const region: string[] = [
     "all",
@@ -59,6 +61,19 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
     setSearchQuery(e.currentTarget.value)
   }
 
+  const timer = () => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  }
+
+  useEffect(() => {
+    if (countries) {
+      timer()
+    }
+  }, [countries])
+
+  let skeletoncards = Array(countries.length).fill(0)
   return (
     <>
       <Head>
@@ -77,7 +92,7 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
           <div className="input h-16 w-full md:w-96 lg:w-[480px] shadow-md cursor-pointer relative">
             <input
               type="text"
-              className="w-full h-full bg-light_Mode_Elements dark:bg-dark_Mode_Elements cursor-pointer pr-10 pl-20 outline-none text-sm text-light_Mode_Text dark:text-dark_Mode_Text"
+              className="w-full h-full bg-light_Mode_Elements dark:bg-dark_Mode_Elements cursor-pointer pr-10 pl-20 outline-none text-sm text-light_Mode_Text dark:text-dark_Mode_Text rounded-md"
               placeholder="Search for a country..."
               value={searchQuery}
               onChange={handleSearchInput}
@@ -90,7 +105,7 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
           <ClickAwayListener onClickAway={closeFilterMenu}>
             <div className="w-[15.625rem] lg:w-[12.5rem] space-y-2 cursor-pointer relative z-20">
               <motion.div
-                whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-full h-16 flex items-center justify-between px-7 shadow-md rounded-md"
                 onClick={() => setShowFilterOption(!showFilterOption)}
@@ -105,8 +120,12 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
                 <motion.div
                   className="w-full absolute top-[4.5rem] px-7 py-5 bg-light_Mode_Elements dark:bg-dark_Mode_Elements flex flex-col shadow-md rounded-md"
                   initial={{ opacity: 0, y: -50 }}
-                  animate={{ opacity: 1, y: 0, transition: { delay: 0.5 } }}
-                  exit={{ opacity: 0, transition: { delay: 0.5 } }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.5, delay: 0.15 },
+                  }}
+                  exit={{ opacity: 0}}
                 >
                   {region.map((reg) => (
                     <li
@@ -123,9 +142,18 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
           </ClickAwayListener>
         </section>
 
-        <section className="country-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 md:gap-14 lg:gap-16 xl:gap-[4.6875rem] place-items-center lg:place-items-start">
-          {cardList}
-        </section>
+        {loading ? (
+          <section className="country-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 md:gap-14 lg:gap-16 xl:gap-[4.6875rem] place-items-center lg:place-items-start">
+            {" "}
+            {skeletoncards.map((index: number) => (
+              <SkeletonCard key={index} />
+            ))}
+          </section>
+        ) : (
+          <section className="country-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 md:gap-14 lg:gap-16 xl:gap-[4.6875rem] place-items-center lg:place-items-start">
+            {cardList}
+          </section>
+        )}
       </div>
     </>
   )

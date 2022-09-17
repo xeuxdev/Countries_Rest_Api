@@ -42,7 +42,11 @@ const CountryDetails: NextPage<{ country: Props }> = ({ country }) => {
 
         <section className="flex lg:items-center justify-between flex-col lg:flex-row gap-20 lg:gap-[136px]">
           {/* image */}
-          <div className="h-[15rem] w-full md:w-[559px] md:h-[404px] object-cover object-center relative shadow-xl">
+          <motion.div
+            className="h-[15rem] w-full md:w-[559px] md:h-[404px] object-cover object-center relative shadow-xl"
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
+          >
             <Image
               src={country.flags.png}
               alt={country.name + "flag"}
@@ -50,9 +54,12 @@ const CountryDetails: NextPage<{ country: Props }> = ({ country }) => {
               priority={true}
               quality={100}
             />
-          </div>
+          </motion.div>
           {/* texts */}
-          <div className="">
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
+          >
             <p className="text-2xl lg:text-xl font-extrabold mb-6 lg:mb-5">
               {country.name}
             </p>
@@ -148,7 +155,7 @@ const CountryDetails: NextPage<{ country: Props }> = ({ country }) => {
             ) : (
               ""
             )}
-          </div>
+          </motion.div>
         </section>
       </main>
     </>

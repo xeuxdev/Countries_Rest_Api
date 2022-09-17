@@ -30,8 +30,11 @@ const CountryDetails: NextPage<{ country: Props }> = ({ country }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container px-5 md:px-7 lg:px-6 xl:px-14 font-nunito min-h-screen">
-        <button className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 hover:scale-105 duration-200">
-          <span className="block w-5 h-5" onClick={() => router.back()}>
+        <button
+          className="flex items-center justify-center gap-2 bg-light_Mode_Elements dark:bg-dark_Mode_Elements w-[7.375rem] h-12 rounded-md shadow-lg shadow-light_Mode_Text/50 mb-16 lg:mb-20 hover:scale-105 duration-200"
+          onClick={() => router.back()}
+        >
+          <span className="block w-5 h-5">
             <ArrowLeft />
           </span>
           Back

@@ -30,6 +30,7 @@ Users should be able to:
 ### Screenshot
 
 ![Dark Mode](public/screen-dark.jpg)
+
 ![Light Mode](public/screen-light.jpg)
 
 ### Links

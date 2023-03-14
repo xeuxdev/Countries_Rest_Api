@@ -35,7 +35,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site : [click here](https://countries-rest-api-ecru.vercel.app/)
+- Live Site : [click here](https://countries-rest-api-blu.netlify.app/)
 
 ## My process
 
